@@ -1,39 +1,109 @@
-# thid_party_llvm_project
+# The LLVM Compiler Infrastructure
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+This directory and its subdirectories contain source code for LLVM,
+a toolkit for the construction of highly optimized compilers,
+optimizers, and runtime environments.
 
-#### 软件架构
-软件架构说明
+The README briefly describes how to get started with building LLVM.
+For more information on how to contribute to the LLVM project, please
+take a look at the
+[Contributing to LLVM](https://llvm.org/docs/Contributing.html) guide.
 
+## Getting Started with the LLVM System
 
-#### 安装教程
+Taken from https://llvm.org/docs/GettingStarted.html.
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### Overview
 
-#### 使用说明
+Welcome to the LLVM project!
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+The LLVM project has multiple components. The core of the project is
+itself called "LLVM". This contains all of the tools, libraries, and header
+files needed to process intermediate representations and converts it into
+object files.  Tools include an assembler, disassembler, bitcode analyzer, and
+bitcode optimizer.  It also contains basic regression tests.
 
-#### 参与贡献
+C-like languages use the [Clang](http://clang.llvm.org/) front end.  This
+component compiles C, C++, Objective C, and Objective C++ code into LLVM bitcode
+-- and from there into object files, using LLVM.
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+Other components include:
+the [libc++ C++ standard library](https://libcxx.llvm.org),
+the [LLD linker](https://lld.llvm.org), and more.
 
+### Getting the Source Code and Building LLVM
 
-#### 特技
+The LLVM Getting Started documentation may be out of date.  The [Clang
+Getting Started](http://clang.llvm.org/get_started.html) page might have more
+accurate information.
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+This is an example workflow and configuration to get and build the LLVM source:
+
+1. Checkout LLVM (including related subprojects like Clang):
+
+     * ``git clone https://github.com/llvm/llvm-project.git``
+
+     * Or, on windows, ``git clone --config core.autocrlf=false
+    https://github.com/llvm/llvm-project.git``
+
+2. Configure and build LLVM and Clang:
+
+     * ``cd llvm-project``
+
+     * ``mkdir build``
+
+     * ``cd build``
+
+     * ``cmake -G <generator> [options] ../llvm``
+
+        Some common generators are:
+
+        * ``Ninja`` --- for generating [Ninja](https://ninja-build.org)
+          build files. Most llvm developers use Ninja.
+        * ``Unix Makefiles`` --- for generating make-compatible parallel makefiles.
+        * ``Visual Studio`` --- for generating Visual Studio projects and
+          solutions.
+        * ``Xcode`` --- for generating Xcode projects.
+
+        Some Common options:
+
+        * ``-DLLVM_ENABLE_PROJECTS='...'`` --- semicolon-separated list of the LLVM
+          subprojects you'd like to additionally build. Can include any of: clang,
+          clang-tools-extra, libcxx, libcxxabi, libunwind, lldb, compiler-rt, lld,
+          polly, or debuginfo-tests.
+
+          For example, to build LLVM, Clang, libcxx, and libcxxabi, use
+          ``-DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi"``.
+
+        * ``-DCMAKE_INSTALL_PREFIX=directory`` --- Specify for *directory* the full
+          pathname of where you want the LLVM tools and libraries to be installed
+          (default ``/usr/local``).
+
+        * ``-DCMAKE_BUILD_TYPE=type`` --- Valid options for *type* are Debug,
+          Release, RelWithDebInfo, and MinSizeRel. Default is Debug.
+
+        * ``-DLLVM_ENABLE_ASSERTIONS=On`` --- Compile with assertion checks enabled
+          (default is Yes for Debug builds, No for all other build types).
+
+      * Run your build tool of choice!
+
+        * The default target (i.e. ``ninja`` or ``make``) will build all of LLVM.
+
+        * The ``check-all`` target (i.e. ``ninja check-all``) will run the
+          regression tests to ensure everything is in working order.
+
+        * CMake will generate build targets for each tool and library, and most
+          LLVM sub-projects generate their own ``check-<project>`` target.
+
+        * Running a serial build will be *slow*.  To improve speed, try running a
+          parallel build. That's done by default in Ninja; for ``make``, use
+          ``make -j NNN`` (NNN is the number of parallel jobs, use e.g. number of
+          CPUs you have.)
+
+      * For more information see [CMake](https://llvm.org/docs/CMake.html)
+
+Consult the
+[Getting Started with LLVM](https://llvm.org/docs/GettingStarted.html#getting-started-with-llvm)
+page for detailed information on configuring and compiling LLVM. You can visit
+[Directory Layout](https://llvm.org/docs/GettingStarted.html#directory-layout)
+to learn about the layout of the source code tree.
