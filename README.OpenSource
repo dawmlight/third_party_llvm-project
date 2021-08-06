@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "LLVM",
+    "License": "Apache License v2.0 with LLVM Exceptions",
+    "License File": "./libunwind/LICENSE.TXT ./lld/LICENSE.TXT ./polly/tools/GPURuntime/LICENSE.TXT ./libcxxabi/LICENSE.TXT ./llvm/include/llvm/Support/LICENSE.TXT ./llvm/utils/unittest/googletest/LICENSE.TXT ./llvm/LICENSE.TXT ./compiler-rt/LICENSE.TXT ./clang-tools-extra/clang-tidy/cert/LICENSE.TXT ./clang-tools-extra/clang-tidy/hicpp/LICENSE.TXT ./clang-tools-extra/LICENSE.TXT ./lldb/LICENSE.TXT ./llgo/LICENSE.TXT ./libcxx/LICENSE.TXT ./clang/LICENSE.TXT ./libclc/LICENSE.TXT ./parallel-libs/acxxel/LICENSE.TXT",
+    "Version Number": "10.0.1",
+    "Owner": "sunqiang13@huawei.com",
+    "Upstream URL": "http://llvm.org/",
+    "Description": "The LLVM Project is a collection of modular and reusable compiler and toolchain technologies. Despite its name, LLVM has little to do with traditional virtual machines. The name \"LLVM\" itself is not an acronym; it is the full name of the project."
+  }
+]

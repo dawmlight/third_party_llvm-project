@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+	 
+	 Notes:
+	 This is project config file for OpenHarmony OSS Audit Tool, if you have any questions or concerns, please email chenyaxun@huawei.com. 	 
+--> 
+<!-- OAT(OSS Audit Tool) configuration guide:
+basedir: Root dir, the basedir + project path is the real source file location.
+licensefile: 
+1.If the project don't have "LICENSE" in root dir, please define all the license files in this project in , OAT will check license files according to this rule.
+
+tasklist(only for batch mode):
+1. task: Define oat check thread, each task will start a new thread.
+2. task name: Only an name, no practical effect.
+3. task policy: Default policy for projects under this task, this field is required and the specified policy must defined in policylist.
+4. task filter: Default filefilter for projects under this task, this field is required and the specified filefilter must defined in filefilterlist.
+5. task project: Projects to be checked, the path field define the source root dir of the project.
+
+
+policyList:
+1. policy: All policyitems will be merged to default OAT.xml rules, the name of policy doesn't affect OAT check process.
+2. policyitem: The fields type, name, path, desc is required, and the fields rule, group, filefilter is optional,the default value is:
+<policyitem type="" name="" path="" desc="" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter"/>
+3. policyitem type:	
+    "compatibility" is used to check license compatibility in the specified path; 
+    "license" is used to check source license header in the specified path;
+    "copyright" is used to check source copyright header in the specified path;
+    "import" is used to check source dependency in the specified path, such as import ... ,include ...
+    "filetype" is used to check file type in the specified path, supported file types: archive, binary
+    "filename" is used to check whether the specified file exists in the specified path(support projectroot in default OAT.xml), supported file names: LICENSE, README, README.OpenSource
+
+4. policyitem name: This field is used for define the license, copyright, "*" means match all, the "!" prefix means could not match this value. For example, "!GPL" means can not use GPL license. 
+5. policyitem path: This field is used for define the source file scope to apply this policyitem, the "!" prefix means exclude the files. For example, "!.*/lib/.*" means files in lib dir will be exclude while process this policyitem.
+6. policyitem rule and group: These two fields are used together to merge policy results. "may" policyitems in the same group means any one in this group passed, the result will be passed.
+7. policyitem filefilter: Used to bind filefilter which define filter rules.
+8. filefilter: Filter rules, the type filename is used to filter file name, the type filepath is used to filter file path.
+
+Note:If the text contains special characters, please escape them according to the following rules:
+" == &gt;
+& == &gt;
+' == &gt;
+< == &gt;
+> == &gt;
+-->
+<configuration>
+    <oatconfig> 
+		<licensefile>libunwind/LICENSE.TXT|lld/LICENSE.TXT|polly/tools/GPURuntime/LICENSE.TXT|libcxxabi/LICENSE.TXT|llvm/include/llvm/Support/LICENSE.TXT|llvm/utils/unittest/googletest/LICENSE.TXT|llvm/LICENSE.TXT|compiler-rt/LICENSE.TXT|clang-tools-extra/clang-tidy/cert/LICENSE.TXT|clang-tools-extra/clang-tidy/hicpp/LICENSE.TXT|clang-tools-extra/LICENSE.TXT|lldb/LICENSE.TXT|llgo/LICENSE.TXT|libcxx/LICENSE.TXT|clang/LICENSE.TXT|libclc/LICENSE.TXT|parallel-libs/acxxel/LICENSE.TXT</licensefile>  
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="compatibility" name="GPL-2.0+" path="polly/lib/External/.*" desc="使用符合Autoconf/Libtool exception,不受GPL协议影响"/>
+                <policyitem type="compatibility" name="GPL-3.0+" path="polly/lib/External/.*" desc="使用符合Autoconf/Libtool exception,不受GPL协议影响"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="polly/lib/External/.*" desc="使用符合Autoconf/Libtool exception,不受GPL协议影响"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="llgo/.*" desc="使用符合Autoconf/Libtool exception,不受GPL协议影响"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="llvm/.*" desc="使用符合Autoconf/Libtool exception,不受GPL协议影响"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="polly/www/video-js/video.js" desc="js文件，不涉及链接，使用符合LGPL协议要求"/>
+                <policyitem type="compatibility" name="University of Illinois Open Source License" path="clang/.*" desc="University of Illinois Open Source License，协议友好，使用符合协议要求"/>
+                <policyitem type="compatibility" name="University of Illinois Open Source License" path="clang-tools-extra/.*" desc="University of Illinois Open Source License，协议友好，使用符合协议要求"/>
+                <policyitem type="compatibility" name="University of Illinois Open Source License" path="libcxx/.*" desc="University of Illinois Open Source License，协议友好，使用符合协议要求"/>
+                <policyitem type="compatibility" name="University of Illinois Open Source License" path="lldb/.*" desc="University of Illinois Open Source License，协议友好，使用符合协议要求"/>
+                <policyitem type="compatibility" name="University of Illinois Open Source License" path="llvm/.*" desc="University of Illinois Open Source License，协议友好，使用符合协议要求"/>
+                <policyitem type="compatibility" name="MIT and University of Illinois Open Source License" path="llvm/.*" desc="University of Illinois Open Source License，协议友好，使用符合协议要求"/>
+                <policyitem type="compatibility" name="MIT and University of Illinois Open Source License" path="libcxx/.*" desc="University of Illinois Open Source License，协议友好，使用符合协议要求"/>
+            </policy>
+        </policylist>
+		<filefilterlist>
+			<filefilter name="defaultFilter" desc="Files not to check">
+                <filteritem type="filepath" name="parallel-libs/README.rst" desc="doc文件"/>
+                <filteritem type="filepath" name="compiler-rt/lib/builtins/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="compiler-rt/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="libcxx/fuzzing/RoutineNames.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="llvm/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="llvm/lib/Target/MSP430/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="llgo/README.TXT" desc="doc文件"/>
+                <filteritem type="filepath" name="libc/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="llvm/utils/lit/utils/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="openmp/runtime/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="openmp/www/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="llvm/docs/.*" desc="doc目录"/>
+                <filteritem type="filepath" name="libc/docs/.*" desc="doc目录"/>
+                <filteritem type="filepath" name="libcxx/docs/.*" desc="doc目录"/>
+                <filteritem type="filepath" name="lldb/docs/.*" desc="doc目录"/>
+                <filteritem type="filepath" name="lld/docs/.*" desc="doc目录"/>
+                <filteritem type="filepath" name="clang/docs/.*" desc="doc文件"/>
+                <filteritem type="filepath" name="clang-tools-extra/docs/.*" desc="doc目录"/>
+			</filefilter>		
+			<filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+                <filteritem type="filepath" name="clang-tools-extra/clang-tidy/cert/LICENSE.TXT" desc="LLVM License"/>
+                <filteritem type="filepath" name="clang-tools-extra/clang-tidy/hicpp/LICENSE.TXT" desc="LLVM License"/>
+                <filteritem type="filepath" name="libclc/LICENSE.TXT" desc="LLVM License"/>
+                <filteritem type="filepath" name="llvm/include/llvm/Support/LICENSE.TXT" desc="LLVM License"/>
+                <filteritem type="filepath" name="libcxx/docs/index.rst" desc="doc文件"/>
+                <filteritem type="filepath" name="clang/tools/clang-format-vs/README.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="clang/www/demo/what is this directory.txt" desc="doc文件"/>
+                <filteritem type="filepath" name="libc/docs/header_generation.rst" desc="doc文件"/>
+                <filteritem type="filepath" name="llvm/lib/Support/COPYRIGHT.regex" desc="License及copyright本身"/>
+                <filteritem type="filepath" name="libclc/README.TXT" desc="readme文件"/>
+                <filteritem type="filepath" name="lldb/tools/debugserver/source/MacOSX/stack_logging.h" desc="APSL v2.0 License，未引入修改，使用符合协议要求"/>
+                <filteritem type="filepath" name="lldb/utils/test/README-disasm" desc="readme文件"/>
+                <filteritem type="filepath" name="polly/lib/External/isl/ChangeLog" desc="changelog描述性文件"/>
+                <filteritem type="filepath" name="llvm/test/MC/RISCV/rv32i-invalid.s" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/test/Transforms/InstCombine/compare-unescaped.ll" desc="文件不包含license"/>
+                <filteritem type="filepath" name="clang/tools/clang-format-vs/source.extension.vsixmanifest.in" desc="文件不包含license"/>
+                <filteritem type="filepath" name="compiler-rt/lib/profile/WindowsMMap.c" desc="public domain"/>
+                <filteritem type="filepath" name="libcxx/utils/google-benchmark/.*" desc="readme等描述性文件"/>
+                <filteritem type="filepath" name="lldb/third_party/Python/module/pexpect-4.6/.*" desc="ISC License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="lldb/third_party/Python/module/ptyprocess-0.6.0/.*" desc="ISC License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="llgo/ssaopt/esc.go" desc="MIT License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="llgo/third_party/gofrontend/libgo/.*" desc="BSD License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="llgo/third_party/gotools/go/.*" desc="BSD License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="llgo/third_party/gofrontend/libffi/src/dlmalloc.c" desc="public domain"/>
+                <filteritem type="filepath" name="polly/lib/External/ppcg/.*" desc="MIT License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="polly/lib/External/isl/.*" desc="MIT License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="openmp/runtime/doc/doxygen/header.tex" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/llvm.spec.in" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/include/llvm/Support/MD5.h" desc="public domain"/>
+                <filteritem type="filepath" name="llvm/include/llvm/Support/xxhash.h" desc="BSD License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="llvm/lib/Support/regstrlcpy.c" desc="协议源于OpenBSD，协议友好，且使用符合协议要求"/>
+                <filteritem type="filepath" name="llvm/lib/Support/xxhash.cpp" desc="BSD License，协议友好，使用符合协议要求"/>
+                <filteritem type="filepath" name="llvm/test/CodeGen/BPF/undef.ll" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/tools/msbuild/source.extension.vsixmanifest" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/tools/msbuild/llvm.csproj" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/utils/lit/setup.py" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llgo/third_party/gofrontend/libffi/Makefile.am" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/utils/benchmark/CONTRIBUTORS" desc="描述性文件"/>
+                <filteritem type="filepath" name="llvm/utils/benchmark/README.LLVM" desc="描述性文件"/>
+                <filteritem type="filepath" name="llvm/utils/kate/llvm-tablegen.xml" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/utils/kate/llvm.xml" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/utils/unittest/googletest/README.LLVM" desc="readme文件"/>
+                <filteritem type="filepath" name="llvm/utils/unittest/googlemock/README.LLVM" desc="readme文件"/>
+                <filteritem type="filepath" name="clang/test/.*" desc="测试文件，不包含license"/>
+                <filteritem type="filepath" name="libclc/generic/include/clc/relational/select.h" desc="文件不包含license"/>
+                <filteritem type="filepath" name="lld/test/.*" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llgo/utils/benchcomp/analyze.R" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llgo/third_party/gofrontend/libffi/.*" desc="目录中configure及Makefile文件不包含license"/>
+                <filteritem type="filepath" name="llgo/third_party/gofrontend/libbacktrace/.*" desc="录中configure及Makefile文件不包含license"/>
+                <filteritem type="filepath" name="lldb/scripts/install_custom_python.py" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/test/.*" desc="测试文件，不包含license"/>
+                <filteritem type="filepath" name="llvm/utils/lit/tests/selecting.py" desc="文件不包含license"/>
+                <filteritem type="filepath" name="llvm/utils/lit/utils/check-sdist" desc="文件不包含license"/>
+                <filteritem type="filepath" name="openmp/runtime/doc/doxygen/config" desc="文件不包含license"/>
+                <filteritem type="filepath" name="openmp/runtime/test/worksharing/for/omp_nonmonotonic_dynamic1.c" desc="文件不包含license"/>
+                <filteritem type="filepath" name="parallel-libs/acxxel/Doxyfile.in" desc="文件不包含license"/>
+                <filteritem type="filepath" name="polly/docs/Architecture.rst" desc="文件不包含license"/>
+                <filteritem type="filepath" name="polly/docs/doxygen.cfg.in" desc="文件不包含license"/>
+                <filteritem type="filepath" name="polly/test/ScopDetect/only-one-affine-loop.ll" desc="文件不包含license"/>
+			</filefilter>
+			<filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies" >		
+			</filefilter>				
+			<filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies" >	
+			</filefilter>	
+			<filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies" >	
+			</filefilter>	
+			<filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies" >		
+			</filefilter>				
+			<filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >		
+			</filefilter>				
+	
+		</filefilterlist>
+        <licensematcherlist>
+            <licensematcher name="University of Illinois Open Source License" desc="InvalidLicense matcher for University of Illinois Open Source License">
+                <licensetext name="
+                    This file is distributed under the University of Illinois Open Source License. See LICENSE.TXT for details.
+                 " desc=""/>
+            </licensematcher>
+            <licensematcher name="MIT and University of Illinois Open Source License" desc="InvalidLicense matcher for University of Illinois Open Source License">
+                <licensetext name="
+                    This file is dual licensed under the MIT and the University of Illinois Open Source Licenses. See LICENSE.TXT for details.
+                 " desc=""/>
+            </licensematcher>
+        </licensematcherlist>
+	
+    </oatconfig>
+</configuration>
